@@ -2,14 +2,14 @@ const random = array => { return array[Math.floor(Math.random() * array.length)]
 
 
 const getHelp = () => {
-  const answers = [
-    'I can help you with the schedule. Or give you directions. And if you need any other sort of assistance, I can always call for help.',
-    'I am here to help you. Just tell me what you need.',
-    'Whenever you need help, just send me a message!',
-    'Want directions, or the timetable? Maybe info on our sponsors! Just ask!',
-    'Need help? Count on me!'
-  ]
-  return Promise.resolve([toText(answers[0])])
+  const answer = 'I can show you the schedule, give you directions,'+
+    ' or provide you with some information on our sponsors.'+
+    ' And if you need assistance from one of our voluneers '+
+    'just add #voluneer and a # with your table number,'+
+    ' and I will make sure to send someone to help you.'+
+    'If you have trouble with your code or one of the APIs'+
+    ' add #mentor and a # with the language or API you have problems with.';
+  return Promise.resolve([toText(answer)])
 }
 const toText = message => { return { type: 'text', content: message } }
 module.exports = getHelp
