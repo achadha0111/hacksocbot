@@ -32,7 +32,7 @@ const INTENTS = {
   neutral: getNeutral,
   gratitude: getGratitude,
   volunteerattention: getVolunterAttention,
-  goodbye: getGoodbyes
+  goodbye: getGoodbyes,
 }
 const bot = new builder.UniversalBot(connector)
 
@@ -59,27 +59,25 @@ const getUser = (address, session) => {
 
 bot.dialog('/', (session) => {
 
-  const user = getUser(session.message.address, session)
+	const user = getUser(session.message.address, session)
 	
   session.sendTyping()
-	recastClient.textRequest(session.message.text, (recast, err) =>{
-		if (err) {
-			session.send('I need some sleep right now...Zzzz')
-		} else { 
-			  const intent = recast.intent()
-              console.log(intent)
-        
-      	if (intent) {
-        		INTENTS[intent](user, entity, location, interest, sentence)
-        		 .then(res => { res.forEach( (message) => sendMessageByType[message.type](session, message)) })
-        		 .catch(err => { err.forEach( (message) => sendMessageByType[message.type](session, message)) })
+	recastClient.textRequest(session.message.text)
+    .then(res => {
+        const intent = res.intents[0].slug
+        if (intent) {
+            INTENTS[intent](user, res)
+             .then(res => { res.forEach( (message) => sendMessageByType[message.type](session, message)) })
+             .catch(err => { err.forEach( (message) => sendMessageByType[message.type](session, message)) })
         } else if (!intent) {
             session.send('I am not quite sure I got that. Ask for help or ask me about opportunities on WorkTeen! You can ask me about volunteering/interning or researching in your city. Examples: \n\n Where can I volunteer in Mumbai? \n\n Are there internship opportunities in Delhi. \n\n If you don\'t like what I suggest, you can ask for some other opportunity.')
-			  }
-      }
+        }
+    }).catch(function(err) {
+        session.send("Didn't get that, could you rephrase or repeat?")
+    })
+		
 	})
-})
 
 const server = restify.createServer()
-server.listen(process.env.PORT || 5000)
+server.listen(process.env.PORT || 8080)
 server.post('/', connector.listen())
