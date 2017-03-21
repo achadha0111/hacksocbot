@@ -2,7 +2,7 @@ const random = array => { return array[Math.floor(Math.random() * array.length)]
 
 const getGreetings = (user, res, person, tableLocation) => {
 	console.log(user)
-	if(user.new === true){
+	if(user.new === false){
     var quickReplies = {"facebook":{
                           "text":`Hi ${user.name}, Since it is your first time here, you can ask me about any information related to the hackathon.'`,
                           "quick_replies":[
@@ -23,8 +23,8 @@ const getGreetings = (user, res, person, tableLocation) => {
                             },
                             {
                               "content_type":"text",
-                              "title":"Staff",
-                              "payload":`I need the staff list`,
+                              "title":"Sponsors",
+                              "payload":`Who is sponsoring this event?`,
                             },
                             {
                               "content_type":"text",

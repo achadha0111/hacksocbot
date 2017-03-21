@@ -2,7 +2,7 @@ const request = require('superagent')
 const _ = require('lodash')
 
 const getDirections = function(user, res, tableLocation) {
-      return Promise.resolve([toText(`Here's the participant's guide - https://dhananjaysharma.gitbooks.io/studenthackv-handbook/content/`)])
+      return Promise.resolve([toText(`Here's the participant's guide, it has all the relevant information - https://dhananjaysharma.gitbooks.io/studenthackv-handbook/content/`)])
 }
 
 

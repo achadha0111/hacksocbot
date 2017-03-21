@@ -15,7 +15,6 @@ const getVolunteerAttention = function(user, res, person, tableLocation) {
      return Promise.resolve([toText('Which table are you at? ([A-E][1-9]')])
    }
    else if(!person) {
-    user.table = (tableLocation) ? tableLocation.raw : undefined
     var quickReplies = {"facebook":{
                           "text":`Sure, whom are you looking for?'`,
                           "quick_replies":[

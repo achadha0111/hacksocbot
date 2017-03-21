@@ -30,8 +30,6 @@ const INTENTS = {
   schedule: getSchedule,
   directions: getDirections,
   help: getHelp,
-  joke: getJoke,
-  neutral: getNeutral,
   gratitude: getGratitude,
   humanhelp: humanhelp,
   goodbye: getGoodbyes,
@@ -71,6 +69,7 @@ bot.dialog('/', (session) => {
         const intent = res.intents[0].slug
         var person = res.get('help-type')
         var tableLocation = res.get('table-location')
+        user.table = (tableLocation) ? tableLocation.raw : undefined
         if (intent) {
             INTENTS[intent](user, res, person, tableLocation)
              .then(res => { res.forEach( (message) => sendMessageByType[message.type](session, message)) })
@@ -85,5 +84,5 @@ bot.dialog('/', (session) => {
 	})
 
 const server = restify.createServer()
-server.listen(process.env.PORT || 8080)
+server.listen(process.env.PORT || 5000 || 8080)
 server.post('/', connector.listen())
